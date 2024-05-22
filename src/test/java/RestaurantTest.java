@@ -25,17 +25,17 @@ class RestaurantTest {
     @Test
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
         Restaurant spyRestaurant = Mockito.spy(restaurant);
-        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("06:00:00"));
+        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("12:00:00"));
         assertTrue(spyRestaurant.isRestaurantOpen());
     }
 
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
         Restaurant spyRestaurant = Mockito.spy(restaurant);
-        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("18:00:02"));
+        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("09:00:00"));
         assertFalse(spyRestaurant.isRestaurantOpen());
 
-        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("22:00:07"));
+        when(spyRestaurant.getCurrentTime()).thenReturn(LocalTime.parse("23:00:00"));
         assertFalse(spyRestaurant.isRestaurantOpen());
     }
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -44,21 +44,21 @@ class RestaurantTest {
     @Test
     public void adding_item_to_menu_should_increase_menu_size_by_1(){
         int initialMenuSize = restaurant.getMenu().size();
-        restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Sizzling brownie", 319);
         assertEquals(initialMenuSize + 1, restaurant.getMenu().size());
     }
 
     @Test
     public void removing_item_from_menu_should_decrease_menu_size_by_1() throws itemNotFoundException {
         int initialMenuSize = restaurant.getMenu().size();
-        restaurant.removeFromMenu("french fries");
+        restaurant.removeFromMenu("Vegetable lasagne");
         assertEquals(initialMenuSize - 1, restaurant.getMenu().size());
     }
 
     @Test
     public void removing_item_that_does_not_exist_should_throw_exception() {
         assertThrows(itemNotFoundException.class,
-                () -> restaurant.removeFromMenu("Vegetable lasagne"));
+                () -> restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }

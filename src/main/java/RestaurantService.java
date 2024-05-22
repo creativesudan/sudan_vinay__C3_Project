@@ -32,5 +32,8 @@ public class RestaurantService {
         return new ArrayList<>(restaurants);
     }
 
-
+    public int calculateOrderValue(String restaurantName, List<String> itemNames) throws restaurantNotFoundException {
+        Restaurant restaurant = findRestaurantByName(restaurantName);
+        return restaurant.calculateOrderValue(itemNames);
+    }
 }
